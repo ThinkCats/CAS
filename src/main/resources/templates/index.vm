@@ -8,5 +8,7 @@ Main
 #end
 
 #define($content)
-    Hello Velocity Boot !!
+    <center><h3> Hello Velocity Boot !! </h3></center>
+    <center><h3> This is a demo login page !! </h3></center>
+
 #end

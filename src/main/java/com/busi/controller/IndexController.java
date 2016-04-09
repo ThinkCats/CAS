@@ -13,8 +13,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class IndexController {
 
-    @RequestMapping(value = "",method = RequestMethod.GET)
+    @RequestMapping(value = "index",method = RequestMethod.GET)
     public String home(){
+        return "index";
+    }
+
+    @RequestMapping(value = "login",method = RequestMethod.POST)
+    public String login(){
+        log.info("begin login...");
+        System.out.println("-------------------------------------------------------------------------- TEST POST ------------------------------------------------");
+        return "index";
+    }
+
+    @RequestMapping(value = "login",method = RequestMethod.GET)
+    public String loginGet(){
+        log.info("begin login...");
+        System.out.println("-------------------------------------------------------------------------- TEST GET ------------------------------------------------");
         return "index";
     }
 }

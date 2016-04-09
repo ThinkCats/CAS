@@ -19,18 +19,19 @@ import java.util.Map;
 @Configuration
 public class FilterConfig {
 
-    @Order(1)
+    @Order(4)
     @Bean
     public FilterRegistrationBean singleSignOutFilter(){
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(new SingleSignOutFilter());
         filterRegistrationBean.addUrlPatterns("/*");
-        filterRegistrationBean.addInitParameter("casServerUrlPrefix","https://localhost:8443/cas-server-webapp-3.4.10");
+        filterRegistrationBean.addInitParameter("casServerUrlPrefix","https://localhost:8443/cas-server-webapp-3.4.10/login");
+        //filterRegistrationBean.addInitParameter("casServerUrlPrefix","https://localhost:8447/index");
         filterRegistrationBean.setName("CAS Single Sign Out Filter");
         return filterRegistrationBean;
     }
 
-    @Order(2)
+    @Order(5)
     @Bean
     public FilterRegistrationBean authFilter(){
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
@@ -38,20 +39,21 @@ public class FilterConfig {
         filterRegistrationBean.addUrlPatterns("/*");
         Map<String,String> initParamMap = new HashMap<>();
         initParamMap.put("casServerLoginUrl","https://localhost:8443/cas-server-webapp-3.4.10/login");
-        initParamMap.put("serverName","http://localhost:8081");
+       // initParamMap.put("casServerLoginUrl","https://localhost:8447/login");
+        initParamMap.put("serverName","http://localhost:8081/#");
         filterRegistrationBean.setInitParameters(initParamMap);
         filterRegistrationBean.setName("CAS Auth Filter");
         return filterRegistrationBean;
     }
 
-    @Order(3)
+    @Order(6)
     @Bean
     public FilterRegistrationBean validatorFilter(){
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setName("CAS Validator Filter");
         filterRegistrationBean.setFilter(new Cas20ProxyReceivingTicketValidationFilter());
         Map<String,String> initParamMap = new HashMap<>();
-        initParamMap.put("casServerUrlPrefix","https://localhost:8443/cas-server-webapp-3.4.10");
+        initParamMap.put("casServerUrlPrefix","https://localhost:8447");
         initParamMap.put("serverName","http://localhost:8081");
         filterRegistrationBean.setInitParameters(initParamMap);
         filterRegistrationBean.addUrlPatterns("/*");
